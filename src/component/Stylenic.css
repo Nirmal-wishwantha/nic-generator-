@@ -1,0 +1,13 @@
+.topic{
+    text-align: center;
+    /* font-family: Courier, monospace; */
+    font-weight: 800;
+    text-shadow: 2px 2px 3px rgb(112, 181, 228);
+}
+
+
+
+.btn-clear:hover{
+    color: red;
+    border: 2px solid;
+}
