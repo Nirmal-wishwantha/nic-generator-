@@ -4,61 +4,56 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import ClearIcon from '@mui/icons-material/Clear';
-
-
-import lankaNic from 'lanka-nic'; 
-// import lankaNic, { infoNic, swapNic, validateNic } from 'lanka-nic-2019'; 
-// import lankaNic, { infoNic, swapNic, validateNic } from 'lanka-nic-2019';
-// import { getInfoFromNIC } from 'lanka-nic';
-
-
-
-
+import lankaNic from 'lanka-nic';
 export default function Nicgenerator() {
 
-    const [nic, setNic] = useState("");
-
-
-    // const [bday, setBday] = useState();
-    const [gen, setGen] = useState();
+    const [nic, setNic] = useState('');
+    const [nicdisplay, setNicdisplay] = useState('');
+    const [bday, setBday] = useState('');
+    const [gen, setGen] = useState('');
+    const [age, setAge] = useState('');
 
     function Genarate() {
         let { dateOfBirth, gender } = lankaNic.getInfoFromNIC(nic);
         setGen(gender)
-
-    
-
-
-        
-
-
-
-
-
-
-
-
+        setNicdisplay(nic)
+        setBday(convert(dateOfBirth))
+        setAge(calculateAge(dateOfBirth));
     }
-
-
-
-
-
-
-
-
 
     function clearAll() {
         setNic('');
+        setNicdisplay('');
+        setBday('');
         setGen('');
-
+        setAge('');
     }
 
+
+    function convert(str) {
+        var date = new Date(str),
+            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+            day = ("0" + date.getDate()).slice(-2);
+        return [date.getFullYear(), mnth, day].join("-");
+    }
+
+
+    function calculateAge(dateOfBirth) {
+        var dob = new Date(dateOfBirth);
+        var now = new Date();
+
+        var age = now.getFullYear() - dob.getFullYear();
+        var monthDiff = now.getMonth() - dob.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dob.getDate())) {
+            age--;
+        }
+
+        return age;
+    }
 
 
 
     return (
-
         <div>
 
             <Box sx={{
@@ -99,11 +94,11 @@ export default function Nicgenerator() {
                         <h3>:</h3>
                     </Box>
 
-                    <Box sx={{ width: '100%' }}>
-                        <h3>{nic}</h3>
-                        <h3>{gen}</h3> 
-                        <h3></h3>
-                        <h3></h3>
+                    <Box sx={{ width: '100%',opacity:.8 }}>
+                        <h3>{nicdisplay}</h3>
+                        <h3>{gen}</h3>
+                        <h3>{bday}</h3>
+                        <h3>{age}</h3>
                     </Box>
                 </Box>
 
@@ -119,6 +114,9 @@ export default function Nicgenerator() {
                     </Button>
                 </Box>
 
+                <Box className='disiner'>
+                    <p >Design & Development by Nirmal.</p>
+                </Box>
             </Box>
 
         </div>

@@ -11,3 +11,16 @@
     color: red;
     border: 2px solid;
 }
+
+.disiner{
+    display: flex;
+    justify-content: center;
+    font-weight: 400;
+    opacity: .4;
+    text-decoration: underline;
+}
+
+.disiner:hover{
+    opacity: .8;
+}
+
